@@ -1,0 +1,28 @@
+#FILE NAME SHOULD BE [.htaccess]
+This file should be inside Public_html (not inside dist) ,the steps are -
+1.open h_panel that is hostinger -websites-> website list(we will find the hosted website)->dashboard(our websites dashboard)
+							or
+1.open h_panel that is hostinger -> home ->there if we scroll down we'll see our domain name ->click on manage (this will open our websites dashboard)
+2.Go to File Manager → public_html.
+3.Make sure .htaccess file exists (create a new one if not).
+4.Paste the below code.
+5.Save
+
+THE CODE :
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Serve existing files or directories
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Redirect everything else to index.html
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+
+THIS FILE IS NECCESSARY WHEN THE CODE IS UPDATED AND WANT TO DEPLOY AGAIN IN HOSTINGER.
+WITHOUT THIS FILE THE ABOUT,CONATACT OR ANY PAGES DOESN'T OPEN DIRECTLY i.e-(https://2ai-conference.org/about)

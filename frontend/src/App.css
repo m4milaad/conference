@@ -1,0 +1,4 @@
+/* Add to App.css or index.css */
+.bg-cover {
+  transition: background-image 1s ease-in-out;
+}

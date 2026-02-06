@@ -1,0 +1,956 @@
+[
+  {
+    "committee_type": "Steering Committee",
+    "sub_committe": "",
+    "name": "KC Santosh",
+    "role": "Professor and Chair of Computer Science Department",
+    "organization": "University of South Dakota",
+    "country": "USA"
+  },
+  {
+    "committee_type": "Steering Committee",
+    "sub_committe": "",
+    "name": "Ravindra Hegadi",
+    "role": "",
+    "organization": "Central University of Karnataka",
+    "country": "India"
+  },
+  {
+    "committee_type": "Steering Committee",
+    "sub_committe": "",
+    "name": "Anshuman Shastri",
+    "role": "",
+    "organization": "Banasthali Vidyapith, Jaipur",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "CHIEF PATRON",
+    "name": "Prof. A. Ravinder Nath",
+    "role": "Vice Chancellor",
+    "organization": "Central University of Kashmir, India",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "PATRON(S)",
+    "name": "Prof Shahid Rasool",
+    "role": "Dean Academic Affairs",
+    "organization": "",
+    "country": ""
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "PATRON(S)",
+    "name": "Prof Sandhya Tiwari",
+    "role": "Dean International affairs",
+    "organization": "",
+    "country": ""
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "PATRON(S)",
+    "name": "Prof Farooq Ahmad Mir",
+    "role": "Dean,School of engineering ",
+    "organization": "",
+    "country": ""
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "HONOARY CHAIRS",
+    "name": "KC Santosh",
+    "role": "Professor and Chair of Computer Science Department",
+    "organization": "University of South Dakota",
+    "country": "USA"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "GENERAL CHAIRS",
+    "name": "Ravindra Hegadi",
+    "role": "",
+    "organization": "Central University of Karnataka",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "GENERAL CHAIRS",
+    "name": "Ram Bilas Pachori",
+    "role": "",
+    "organization": "IIT Indore",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "PROGRAM CHAIRS",
+    "name": "Yash Paul",
+    "role": "",
+    "organization": "Central University of Kashmir",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "PROGRAM CHAIRS",
+    "name": "Akram Bennour",
+    "role": "",
+    "organization": "Larbi tebessi University",
+    "country": "Algeria"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "PROGRAM CHAIRS",
+    "name": "Rajiv Singh",
+    "role": "",
+    "organization": "Banasthali Vidyapith",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "PROGRAM CHAIRS",
+    "name": "Oluwarotimi Samuel",
+    "role": "",
+    "organization": "University of Derby",
+    "country": "UK"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "THEME CHAIRS",
+    "role": "AI for Energy",
+    "name": "Kaavya Kanagaraj",
+    "organization": "Central University of Karnataka",
+    "country": "India"
+  },
+ {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "THEME CHAIRS",
+    "name": "Nand K Yadav",
+    "role": "AI for Energy",
+
+    "organization": "USD AI Research, University of South Dakota",
+    "country": "USA"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "THEME CHAIRS",
+    "role": "AI for Education",
+    "name": "Bolanle Ojokoh",
+    "organization": "Federal University of Technology Akure",
+    "country": "Nigeria"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "THEME CHAIRS",
+    "role": "AI for Education",
+    "name": "Bassem Bouaziz",
+    "organization": "University of Sfax",
+    "country": "Tunisia"
+  },
+{
+    "committee_type": "Organizing Committee",
+    "sub_committe": "WORKSHOP CHAIRS",
+    "role": "",
+    "name": "Veerendra Malemath ",
+    "organization": "KLE Dr MSS College of Engg. & Technology, Belgaum",
+    "country": "India"
+  }
+  ,
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "THEME CHAIRS",
+    "role": "AI for Education",
+    "name": "Preethi Baligar",
+    "organization": "MIT Vishwaprayag University, Solapur",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "THEME CHAIRS",
+    "role": "AI for Healthcare",
+    "name": "Rodrigue Rizk",
+    "organization": "University of South Dakota",
+    "country": "USA"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "THEME CHAIRS",
+    "role": "AI for Healthcare",
+    "name": "Debasmita Ghosh Roy",
+    "organization": "Banasthali Bidyapith",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "THEME CHAIRS",
+    "role": "AI for Healthcare",
+    "name": "Vishwanath P. Baligar",
+    "organization": "KLE Technological University",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "THEME CHAIRS",
+    "role": "AI for Healthcare",
+    "name": "Surbhi Gupta",
+    "organization": "Model Institute of Engineering & Technology, Jammu",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "THEME CHAIRS",
+    "role": "AI for Business and Finance",
+    "name": "Sk Md Obaidullah",
+    "organization": "Aliah University, Kolkata",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "THEME CHAIRS",
+    "role": "AI for Business and Finance",
+    "name": "Rajesh Kumar",
+    "organization": "University of Johannesburg",
+    "country": "South Africa"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "THEME CHAIRS",
+    "role": "AI for Defence & Security",
+    "name": "Mahesh Kolekar",
+    "organization": "IIT Patna",
+    "country": "India"
+  },
+{
+    "committee_type": "Organizing Committee",
+    "sub_committe": "THEME CHAIRS",
+    "role": "AI for Defence & Security",
+    "name": "Satwinder Singh",
+    "organization": "Central University of Punjab",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "THEME CHAIRS",
+    "role": "AI for Agriculture",
+    "name": "Ganga Holi",
+    "organization": "Alliance University, Bangalore",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "THEME CHAIRS",
+    "role": "AI for Agriculture",
+    "name": "Darshan Ruikar",
+    "organization": "MIT Vishwaprayag University, Solapur",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "WORKSHOP CHAIRS",
+    "role": "",
+    "name": "Krishan Berwal",
+    "organization": "Military College of Telecommunication Engineering, Indore",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "WORKSHOP CHAIRS",
+    "role": "",
+    "name": "Nibaran Das",
+    "organization": "Jadavpur University, Kolkata",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "WORKSHOP CHAIRS",
+    "name": "Veerpratap Meena",
+    "role": "",
+    "organization": "National Institute of Technology, Jamshedpur",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "WORKSHOP CHAIRS",
+    "name": "Rajib Ghosh",
+    "role": "Workshop Chair",
+    "organization": "National Institute of Technology Patna",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "SPECIAL SESSION CHAIRS",
+    "role": "",
+    "name": "Ashok Kumar Patil",
+    "organization": "PES University, Bengaluru",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "PUBLICITY CHAIRS",
+    "name": "Dr.Ramalingam",
+    "role": "",
+    "organization": "Majan University College",
+    "country": "Oman"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "PUBLICITY CHAIRS",
+    "name": "Ali Behravan",
+    "role": "",
+    "organization": "University Siegen",
+    "country": "Germany"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "PUBLICITY CHAIRS",
+    "name": "Priti Rai",
+    "role": "",
+    "organization": "University of Delhi",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Abhinav Muley",
+    "role": "",
+    "organization": "St. Vincent Pallotti College of Engineering and Technology",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Ali Nazarizadeh",
+    "role": "",
+    "organization": "Islamic Azad University Central Tehran Branch",
+    "country": "Iran"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Amar Nath",
+    "role": "",
+    "organization": "SLIET Longowal",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Anurag Rana",
+    "role": "",
+    "organization": "Shoolini University",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Archana S Nandibewoor",
+    "role": "",
+    "organization": "Dayanada Sagar College of Engineering, Bangalore",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Asifuzzaman Lasker",
+    "role": "",
+    "organization": "Aliah University",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Bhanu Prakash Reddy Rella",
+    "role": "",
+    "organization": "Walmart",
+    "country": "USA"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Bikram Bikash Das",
+    "role": "",
+    "organization": "National Institute of Technology, Silchar",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Devkumar Sadanand Biswas",
+    "role": "",
+    "organization": "Indian Insitute of Technology, Ropar",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Dr. Manohar Madgi",
+    "role": "",
+    "organization": "KLE Technological University, Hubballi",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Dr. Alex Gupta",
+    "role": "",
+    "organization": "Central University of Chile",
+    "country": "Chile"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Dr. Navneet Kaur",
+    "role": "",
+    "organization": "SIRT, Bhopal",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Dr. Sanjay Jain",
+    "role": "",
+    "organization": "ITM University",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Dr. Shallu Sehgal",
+    "role": "",
+    "organization": "Shoolini Institute of Life Sciences and Business Management",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Dr. Sivabalan Settu",
+    "role": "",
+    "organization": "Lincoln University College",
+    "country": "Malaysia"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Dr. Stone D Senku",
+    "role": "",
+    "organization": "Epstine",
+    "country": ""
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Hariharan R",
+    "role": "",
+    "organization": "SRM Institute of Science and Technology, Chennai",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Harshavardhana Doddamani",
+    "role": "",
+    "organization": "S.J.C. Institute of Technology",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Kaavya Kanagaraj",
+    "role": "",
+    "organization": "Central University of Karnataka",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Kapil Sethi",
+    "role": "",
+    "organization": "Bahra University",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Kavita A. Khobragade",
+    "role": "",
+    "organization": "Fergusson College (Autonomous), Pune",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Kishu Gupta",
+    "role": "",
+    "organization": "National Sun Yat-sen University",
+    "country": "Taiwan"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Kris K",
+    "role": "",
+    "organization": "MCTE",
+    "country": ""
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Kumar Gaurav",
+    "role": "",
+    "organization": "Indian Institute of Technology Roorkee",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Madhu Arora",
+    "role": "",
+    "organization": "Symbiosis Institute of Computer Studies and Research",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Mahadev K. Patil",
+    "role": "",
+    "organization": "R. V. University, Bengaluru",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Manas Kumar Nag",
+    "role": "",
+    "organization": "Central University of Rajasthan",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Mayur P Deshmukh",
+    "role": "",
+    "organization": "Vishwakarma University, Pune",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Md Obaidullah Sk",
+    "role": "",
+    "organization": "Aliah University",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Milankumar Rana",
+    "role": "",
+    "organization": "University of the Cumberlands",
+    "country": "USA"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Nagaraju L G",
+    "role": "",
+    "organization": "REVA University",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Nand Kumar Yadav",
+    "role": "",
+    "organization": "University of South Dakota",
+    "country": "USA"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Naveen Kumar Dodde Gowda",
+    "role": "",
+    "organization": "Couchbase, Inc.",
+    "country": "USA"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Nayan Kumar",
+    "role": "",
+    "organization": "Indian Institute of Technology Delhi",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Niharika P Pujari",
+    "role": "",
+    "organization": "McGraw Hill LLC",
+    "country": "USA"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Nikhil Dhiman",
+    "role": "",
+    "organization": "California State University - Los Angeles",
+    "country": "USA"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Parbhat Gupta",
+    "role": "",
+    "organization": "SRM Institute of Science and Technology, Delhi NCR Campus",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Peter C Dolan",
+    "role": "",
+    "organization": "University of Minnesota Morris",
+    "country": "USA"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Prajna Jha",
+    "role": "",
+    "organization": "Amity University Mumbai",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Ramalingam Dharmalingam",
+    "role": "",
+    "organization": "MAJAN University College",
+    "country": "Oman"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Rodrigo Nava",
+    "role": "",
+    "organization": "AstraZeneca",
+    "country": ""
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "S. S. Patil",
+    "role": "",
+    "organization": "Eternal University, HP & UAS Bangalore",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Sabarinath Yada",
+    "role": "",
+    "organization": "Accenture",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Sanjay Eknath Pate",
+    "role": "",
+    "organization": "Nanasaheb Y.N. Chavan College, Chalisgaon",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Sathyanarayanan S",
+    "role": "",
+    "organization": "Sri Sathya Sai University for Human Excellence",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Sharad Jadhav",
+    "role": "",
+    "organization": "Swami Ramanand Teerth Marathwada University",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Shubham Mahajan",
+    "role": "",
+    "organization": "Amity University Haryana",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Smita Agrawal",
+    "role": "",
+    "organization": "Jyothy Institute of Technology",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Sonam",
+    "role": "",
+    "organization": "USIC&T",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Sopan A Talekar",
+    "role": "",
+    "organization": "MVPS Karmaveer Adv. Baburao Thakare College of Engineering",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Sudeep Mungara",
+    "role": "",
+    "organization": "Meta",
+    "country": "USA"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Sumit Sharma",
+    "role": "",
+    "organization": "National Institute of Technology Kurukshetra",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Szilard Vajda",
+    "role": "",
+    "organization": "Central Washington University",
+    "country": "USA"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Tasneem Jahan",
+    "role": "",
+    "organization": "Sagar Institute of Research & Technology",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "V S Malemath",
+    "role": "",
+    "organization": "KLE Dr. M S Sheshgiri College of Engg. and Technology, Belagavi",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Vidya Pol",
+    "role": "",
+    "organization": "Karnataka State Akkamahadevi Women's University",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Vijaya Kittu Manda",
+    "role": "",
+    "organization": "PBMEIT",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Vivek Kumar Singh",
+    "role": "",
+    "organization": "Sharda University",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Ward Ul Hijaz Paul",
+    "role": "",
+    "organization": "University of Kashmir, Srinagar",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "TECHNICAL PROGRAM COMMITTEE",
+    "name": "Yerriswamy T",
+    "role": "",
+    "organization": "REVA University",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "LOCAL ORGANIZING COMMITTEE",
+    "name": "Dr.Nisar Ahmad Mir",
+    "role": "Registrar",
+    "organization": "Central University of Kashmir",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "LOCAL ORGANIZING COMMITTEE",
+    "name": "Dr.Asif Khan",
+    "role": "Finance Officer",
+    "organization": "Central University of Kashmir",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "LOCAL ORGANIZING COMMITTEE",
+    "name": "Dr.Afaq Alam Khan",
+    "role": "Assistant Professor",
+    "organization": "Central University of Kashmir",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "LOCAL ORGANIZING COMMITTEE",
+    "name": "Dr.Zahoor Ahmad Najar",
+    "role": "Assistant Professor",
+    "organization": "Central University of Kashmir",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "LOCAL ORGANIZING COMMITTEE",
+    "name": "Dr.Shahid Sulthan Hajam",
+    "role": "Assistant Professor",
+    "organization": "Central University of Kashmir",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "LOCAL ORGANIZING COMMITTEE",
+    "name": "Dr.Hari Bhan Ram Bhan Bhapkar",
+    "role": "Associate Professor",
+    "organization": "Central University of Kashmir",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "LOCAL ORGANIZING COMMITTEE",
+    "name": "Dr.Ramjit",
+    "role": "Assistant Professor",
+    "organization": "Central University of Kashmir",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "LOCAL ORGANIZING COMMITTEE",
+    "name": "Dr.Asif Ahmad Shah",
+    "role": "Assistant Professor",
+    "organization": "Central University of Kashmir",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "LOCAL ORGANIZING COMMITTEE",
+    "name": "Dr.Zia-UI-Haq",
+    "role": "Associate Professor",
+    "organization": "Central University of Kashmir",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "LOCAL ORGANIZING COMMITTEE",
+    "name": "Dr.Mushtaq Ahmad lone",
+    "role": "Associate Professor",
+    "organization": "Central University of Kashmir",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "LOCAL ORGANIZING COMMITTEE",
+    "name": "Dr.Debanjan Bose",
+    "role": "Associate Professor",
+    "organization": "Central University of Kashmir",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "LOCAL ORGANIZING COMMITTEE",
+    "name": "Dr.Chinnappan Baskar ",
+    "role": "Associate Professor",
+    "organization": "Central University of Kashmir",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "NATIONAL ADVISORY COMMITTEE",
+    "name": "will be declared ",
+    "role": "",
+    "organization": "",
+    "country": ""
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "INTERNATIONAL ADVISORY COMMITTEE",
+    "name": "Chandan Pal Singh",
+    "role": "SKPU, Shymkent",
+    "organization": "Kazakastan",
+    "country": ""
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "INTERNATIONAL ADVISORY COMMITTEE",
+    "name": "Chitresh Sharma",
+    "role": "",
+    "organization": "Chief Data Architecture, L'Orial, L'Orial Paris",
+    "country": "France"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "INTERNATIONAL ADVISORY COMMITTEE",
+    "name": "DS Guru",
+    "role": "",
+    "organization": "University of Mysore",
+    "country": "India"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "INTERNATIONAL ADVISORY COMMITTEE",
+    "name": "LONGWEI WANG",
+    "role": "",
+    "organization": "University of South Dakota",
+    "country": "USA"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "INTERNATIONAL ADVISORY COMMITTEE",
+    "name": "Abdelkrim Haqiq",
+    "role": "",
+    "organization": "Hassan First University of Settat",
+    "country": "Settat,Morocco"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "INTERNATIONAL ADVISORY COMMITTEE",
+    "name": "Anas Abou el Kalam",
+    "role": "",
+    "organization": "Cadi Ayyad University",
+    "country": "Marrakesh,Morocco"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "INTERNATIONAL ADVISORY COMMITTEE",
+    "name": "Shashi Kant Gupta",
+    "role": "",
+    "organization": "Eudoxia Research University",
+    "country": "New castle, USA"
+  },
+  {
+    "committee_type": "Organizing Committee",
+    "sub_committe": "INTERNATIONAL ADVISORY COMMITTEE",
+    "name": "Arvind Bhardwaj",
+    "role": "",
+    "organization": "Test Lead, Capgemini",
+    "country": "USA"
+  }
+]
