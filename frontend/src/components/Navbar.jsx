@@ -2,11 +2,12 @@
 // https://m4milaad.github.io/ 
 
 import { useState, useEffect } from "react";
-import { Menu, X, ChevronDown, Search, User } from "lucide-react";
+import { ChevronDown, Search, User } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [yearOpen, setYearOpen] = useState(false);
   const [committeeOpen, setCommitteeOpen] = useState(false);
   const [sessionsOpen, setSessionsOpen] = useState(false);
@@ -22,6 +23,18 @@ function Navbar() {
     { name: "Special Sessions", path: "/sessions/specialSessions" },
     { name: "Workshops", path: "/sessions/workshops" },
   ];
+
+  const handleMenuToggle = () => {
+    if (isOpen) {
+      setIsClosing(true);
+      setTimeout(() => {
+        setIsOpen(false);
+        setIsClosing(false);
+      }, 300);
+    } else {
+      setIsOpen(true);
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -44,6 +57,18 @@ function Navbar() {
           <div className="flex items-center gap-3">
             <img src="/CUKLogo.png" alt="CUK Logo" className="h-12 w-auto object-contain" />
             <img src="/logo.png" alt="Conference Logo" className="h-12 w-auto object-contain" />
+            <a 
+              href="https://www.springer.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center"
+            >
+              <img 
+                src="/springer.png" 
+                alt="Springer Logo" 
+                className="h-8 w-auto object-contain"
+              />
+            </a>
             <div className="hidden md:block ml-2">
               <div className="text-sm font-semibold text-gray-800">2AI</div>
               <div className="text-xs text-gray-600">CONFERENCE 2026</div>
@@ -226,25 +251,44 @@ function Navbar() {
 
             {/* Mobile Hamburger */}
             <button
-              className="lg:hidden text-white hover:text-gray-200 transition"
-              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden text-white hover:text-gray-200 transition-colors"
+              onClick={handleMenuToggle}
+              aria-label="Toggle menu"
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              <div className="relative w-6 h-5 flex flex-col justify-between">
+                <span 
+                  className={`block h-0.5 w-full bg-current transform transition-all duration-300 ease-in-out ${
+                    isOpen ? 'rotate-45 translate-y-2' : ''
+                  }`}
+                />
+                <span 
+                  className={`block h-0.5 w-full bg-current transition-all duration-300 ease-in-out ${
+                    isOpen ? 'opacity-0' : 'opacity-100'
+                  }`}
+                />
+                <span 
+                  className={`block h-0.5 w-full bg-current transform transition-all duration-300 ease-in-out ${
+                    isOpen ? '-rotate-45 -translate-y-2' : ''
+                  }`}
+                />
+              </div>
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="lg:hidden bg-white border-t border-gray-200">
+          <div className={`lg:hidden bg-white border-t border-gray-200 overflow-hidden ${
+            isClosing ? 'animate-slideUp' : 'animate-slideDown'
+          }`}>
             <div className="px-4 py-2 space-y-1">
-              <Link to="/" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+              <Link to="/" onClick={handleMenuToggle} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
                 Home
               </Link>
-              <Link to="/about" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+              <Link to="/about" onClick={handleMenuToggle} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
                 About
               </Link>
-              <Link to="/call-for-papers" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+              <Link to="/call-for-papers" onClick={handleMenuToggle} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
                 Call For Papers
               </Link>
               
@@ -265,7 +309,7 @@ function Navbar() {
                         to={item.path}
                         onClick={() => {
                           setCommitteeOpen(false);
-                          setIsOpen(false);
+                          handleMenuToggle();
                         }}
                         className="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded"
                       >
@@ -276,7 +320,7 @@ function Navbar() {
                 )}
               </div>
 
-              <Link to="/schedule" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+              <Link to="/schedule" onClick={handleMenuToggle} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
                 Schedule
               </Link>
 
@@ -297,7 +341,7 @@ function Navbar() {
                         to={item.path}
                         onClick={() => {
                           setSessionsOpen(false);
-                          setIsOpen(false);
+                          handleMenuToggle();
                         }}
                         className="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded"
                       >
@@ -308,16 +352,16 @@ function Navbar() {
                 )}
               </div>
 
-              <Link to="/KeyNotes" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+              <Link to="/KeyNotes" onClick={handleMenuToggle} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
                 Speakers
               </Link>
-              <Link to="/sponsors" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+              <Link to="/sponsors" onClick={handleMenuToggle} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
                 Sponsors
               </Link>
-              <Link to="/registration" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+              <Link to="/registration" onClick={handleMenuToggle} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
                 Registration
               </Link>
-              <Link to="/contact" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+              <Link to="/contact" onClick={handleMenuToggle} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
                 Contact
               </Link>
             </div>

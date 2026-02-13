@@ -9,7 +9,7 @@ function Footer() {
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          
+
           {/* Left Column - Contact Us */}
           <div>
             <h3 className="text-lg font-bold text-gray-800 mb-4">Contact Us</h3>
@@ -23,14 +23,14 @@ function Footer() {
                 Please contact us with questions about the following topics:
               </p>
               <p className="text-xs text-gray-600 leading-relaxed">
-                Author - Paper Submission - Technical Issues, Author - Camera-Ready Paper, Registration - 
-                General, Registration - Cancellation, Childcare/Guests, Expo/Guests, Lodging, Visa Letter, 
+                Author - Paper Submission - Technical Issues, Author - Camera-Ready Paper, Registration -
+                General, Registration - Cancellation, Childcare/Guests, Expo/Guests, Lodging, Visa Letter,
                 Reviewer - Open Review Issues, Reviewer - General Issues, Reviewer - Conflict of Interest
               </p>
               <div className="pt-3">
                 <p className="font-semibold text-gray-800 mb-2">Website and Invitation Letter Help</p>
                 <p className="text-xs text-gray-600">
-                  Use the website help link for issues including login, inactive accounts, invitation letters, 
+                  Use the website help link for issues including login, inactive accounts, invitation letters,
                   papers not associated with a registration.
                 </p>
               </div>
@@ -49,9 +49,9 @@ function Footer() {
                   </div>
                 </div>
                 <div>
-                  <a 
-                    href="https://www.computer.org/" 
-                    target="_blank" 
+                  <a
+                    href="https://www.computer.org/"
+                    target="_blank"
                     rel="noreferrer"
                     className="text-blue-600 hover:underline text-sm font-medium"
                   >
@@ -68,9 +68,9 @@ function Footer() {
                   </div>
                 </div>
                 <div>
-                  <a 
-                    href="https://www.thecvf.com/" 
-                    target="_blank" 
+                  <a
+                    href="https://www.thecvf.com/"
+                    target="_blank"
                     rel="noreferrer"
                     className="text-blue-600 hover:underline text-sm font-medium"
                   >
@@ -99,7 +99,7 @@ function Footer() {
         {/* Social Media & Webmaster */}
         <div className="mt-8 pt-6 border-t border-gray-200">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            
+
             {/* Social Media */}
             <div className="flex items-center gap-4">
               <span className="text-sm text-gray-700 font-medium">Follow Us:</span>
@@ -145,9 +145,20 @@ function Footer() {
             <p>
               © {new Date().getFullYear()} 2026 International Conference on Applied Artificial Intelligence (2AI). All Rights Reserved.
             </p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <img src="/CUKLogo.png" alt="CUK Logo" className="h-8 w-auto object-contain" />
               <img src="/logo.png" alt="Conference Logo" className="h-8 w-auto object-contain" />
+              <a 
+                href="https://www.springer.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <img 
+                  src="/springer.png" 
+                  alt="Springer Logo" 
+                  className="h-8 w-auto object-contain hover:opacity-80 transition"
+                />
+              </a>
             </div>
           </div>
         </div>
