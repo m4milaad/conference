@@ -1,32 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+// Edited by Milad Ajaz 
+// https://m4milaad.github.io/ 
+
+import { useState, useEffect } from "react";
+import { Menu, X, ChevronDown, Search, User } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [yearOpen, setYearOpen] = useState(false);
   const [committeeOpen, setCommitteeOpen] = useState(false);
   const [sessionsOpen, setSessionsOpen] = useState(false);
 
   const location = useLocation();
 
-  const navItems = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Call For Papers", path: "/call-for-papers" },
-    { name: "Committee", path: "/committee" },
-    { name: "Schedule", path: "/schedule" },
-    { name: "Sessions", path: "/sessions" },
-    { name: "Speakers", path: "/KeyNotes" }, // Changed from "KeyNotes" to "Speakers"
-    { name: "Sponsors", path: "/sponsors" },
-    { name: "Registration", path: "/registration" },
-    { name: "Contact", path: "/contact" },
-    // { name: "Login", path: "/login" },
-  ];
-
   const committeeItems = [
     { name: "Steering Committee", path: "/committee/SteeringCommitte" },
     { name: "Organizing Committee", path: "/committee/organizingCommitte" },
-    // { name: "Technical Committee", path: "/committee/technicalCommitte" },
   ];
 
   const sessionsItems = [
@@ -37,6 +26,7 @@ function Navbar() {
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!e.target.closest(".dropdown")) {
+        setYearOpen(false);
         setCommitteeOpen(false);
         setSessionsOpen(false);
       }
@@ -46,263 +36,295 @@ function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white/10 backdrop-blur-md shadow-lg z-50">
-      <div className="max-w-14xl mx-auto px-4 py-4 flex justify-between items-center">
-        {/* Logo */}
-        <div className="flex justify-center md:justify-start items-center gap-4">
-          <img
-            src="/CUKLogo.png"
-            alt="Conference Logo"
-            className="h-16 w-12 object-contain"
-          />
-          <img
-            src="/logo.png"
-            alt="Conference Logo"
-            className="h-16 w-16 object-contain"
-          />
+    <>
+      {/* Top Bar - Logo and Utilities */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+          {/* Logo Section */}
+          <div className="flex items-center gap-3">
+            <img src="/CUKLogo.png" alt="CUK Logo" className="h-12 w-auto object-contain" />
+            <img src="/logo.png" alt="Conference Logo" className="h-12 w-auto object-contain" />
+            <div className="hidden md:block ml-2">
+              <div className="text-sm font-semibold text-gray-800">2AI</div>
+              <div className="text-xs text-gray-600">CONFERENCE 2026</div>
+            </div>
+          </div>
+
+          {/* Right Side - Search and Login */}
+          <div className="flex items-center gap-3">
+            <div className="hidden md:flex items-center bg-gray-100 rounded px-3 py-1.5">
+              <Search size={16} className="text-gray-500 mr-2" />
+              <input
+                type="text"
+                placeholder="Search"
+                className="bg-transparent border-none outline-none text-sm w-32 lg:w-48"
+              />
+            </div>
+            <button className="flex items-center gap-1 text-sm text-gray-700 hover:text-blue-700 transition">
+              <User size={18} />
+              <span className="hidden md:inline">Login</span>
+            </button>
+          </div>
         </div>
-
-        {/* Desktop Nav */}
-        <div className="hidden md:flex flex-wrap gap-6 font-bold text-black text-base lg:gap-8 lg:text-lg">
-          {navItems.map((item, index) => {
-            const isActive = location.pathname === item.path;
-
-            if (item.name === "Committee") {
-              return (
-                <div key={index} className="relative dropdown">
-                  <button
-                    onClick={() => {
-                      setCommitteeOpen(!committeeOpen);
-                      setSessionsOpen(false);
-                    }}
-                    className={`flex items-center gap-1 transition ${location.pathname.startsWith("/committee")
-                      ? "text-[#d81159]"
-                      : "hover:text-[#d81159]"
-                      }`}
-                  >
-                    {item.name}
-                    <ChevronDown
-                      size={16}
-                      className={`transition-transform ${committeeOpen ? "rotate-180" : ""
-                        }`}
-                    />
-                  </button>
-                  {committeeOpen && (
-                    <div className="absolute left-0 mt-2 bg-white shadow-lg rounded-md w-56 z-50">
-                      <ul className="flex flex-col py-2">
-                        {committeeItems.map((sub, subIndex) => {
-                          const subActive = location.pathname === sub.path;
-                          return (
-                            <li key={subIndex}>
-                              <Link
-                                to={sub.path}
-                                onClick={() => setCommitteeOpen(false)}
-                                className={`block px-4 py-2 transition ${subActive
-                                  ? "text-[#d81159] font-medium"
-                                  : "text-gray-700 hover:bg-blue-100 hover:text-[#d81159]"
-                                  }`}
-                              >
-                                {sub.name}
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              );
-            } else if (item.name === "Sessions") {
-              return (
-                <div key={index} className="relative dropdown">
-                  <button
-                    onClick={() => {
-                      setSessionsOpen(!sessionsOpen);
-                      setCommitteeOpen(false);
-                    }}
-                    className={`flex items-center gap-1 transition ${location.pathname.startsWith("/sessions")
-                      ? "text-[#d81159]"
-                      : "hover:text-[#d81159]"
-                      }`}
-                  >
-                    {item.name}
-                    <ChevronDown
-                      size={16}
-                      className={`transition-transform ${sessionsOpen ? "rotate-180" : ""
-                        }`}
-                    />
-                  </button>
-                  {sessionsOpen && (
-                    <div className="absolute left-0 mt-2 bg-white shadow-lg rounded-md w-56 z-50">
-                      <ul className="flex flex-col py-2">
-                        {sessionsItems.map((sub, subIndex) => {
-                          const subActive = location.pathname === sub.path;
-                          return (
-                            <li key={subIndex}>
-                              <Link
-                                to={sub.path}
-                                onClick={() => setSessionsOpen(false)}
-                                className={`block px-4 py-2 transition ${subActive
-                                  ? "text-[#d81159] font-medium"
-                                  : "text-gray-700 hover:bg-blue-100 hover:text-[#d81159]"
-                                  }`}
-                              >
-                                {sub.name}
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              );
-            }
-
-            return (
-              <Link
-                key={index}
-                to={item.path}
-                className={`relative group transition-all duration-300 ${isActive ? "text-[#d81159]" : "hover:text-[#d81159]"
-                  }`}
-              >
-                {item.name}
-                <span
-                  className={`absolute left-0 -bottom-1 h-0.5 bg-blue-500 transition-all ${isActive ? "w-full" : "w-0 group-hover:w-full"
-                    }`}
-                ></span>
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* Mobile Hamburger */}
-        <button
-          className="md:hidden text-gray-800 hover:text-[#d81159] transition"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
       </div>
 
-      {/* Mobile Nav */}
-      {isOpen && (
-        <div className="md:hidden bg-white shadow-lg absolute top-full left-0 w-full z-40 max-h-[80vh] overflow-y-auto">
-          <ul className="flex flex-col font-bold text-gray-900 text-lg">
-            {navItems.map((item, index) => {
-              const isActive = location.pathname === item.path;
+      {/* Main Navigation Bar */}
+      <nav className="bg-[#2c5aa0] shadow-md sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between h-12">
+            {/* Year Selector */}
+            <div className="relative dropdown">
+              <button
+                onClick={() => {
+                  setYearOpen(!yearOpen);
+                  setCommitteeOpen(false);
+                  setSessionsOpen(false);
+                }}
+                className="flex items-center gap-1 bg-[#1e4a8a] text-white px-4 py-2 rounded text-sm font-medium hover:bg-[#1a3d6e] transition"
+              >
+                Select Year (2026)
+                <ChevronDown size={14} className={`transition-transform ${yearOpen ? "rotate-180" : ""}`} />
+              </button>
+              {yearOpen && (
+                <div className="absolute left-0 mt-2 bg-white shadow-lg rounded w-48 z-50">
+                  <ul className="py-1">
+                    <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">2026</li>
+                    <li className="px-4 py-2 text-sm text-gray-400 cursor-not-allowed">2025</li>
+                  </ul>
+                </div>
+              )}
+            </div>
 
-              if (item.name === "Committee") {
-                return (
-                  <div key={index} className="dropdown">
-                    <button
-                      onClick={() => {
-                        setCommitteeOpen(!committeeOpen);
-                        setSessionsOpen(false);
-                      }}
-                      className={`flex items-center gap-1 px-4 py-2 transition ${location.pathname.startsWith("/committee")
-                        ? "text-[#d81159]"
-                        : "hover:text-[#d81159]"
-                        }`}
-                    >
-                      {item.name}
-                      <ChevronDown
-                        size={16}
-                        className={`transition-transform ${committeeOpen ? "rotate-180" : ""
-                          }`}
-                      />
-                    </button>
-                    {committeeOpen && (
-                      <ul className="flex flex-col bg-gray-50">
-                        {committeeItems.map((sub, subIndex) => {
-                          const subActive = location.pathname === sub.path;
-                          return (
-                            <li key={subIndex}>
-                              <Link
-                                to={sub.path}
-                                onClick={() => {
-                                  setCommitteeOpen(false);
-                                  setIsOpen(false);
-                                }}
-                                className={`block px-8 py-2 transition ${subActive
-                                  ? "text-[#d81159] font-medium"
-                                  : "text-gray-700 hover:bg-blue-100 hover:text-[#d81159]"
-                                  }`}
-                              >
-                                {sub.name}
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    )}
-                  </div>
-                );
-              } else if (item.name === "Sessions") {
-                return (
-                  <div key={index} className="dropdown">
-                    <button
-                      onClick={() => {
-                        setSessionsOpen(!sessionsOpen);
-                        setCommitteeOpen(false);
-                      }}
-                      className={`flex items-center gap-1 px-4 py-2 transition ${location.pathname.startsWith("/sessions")
-                        ? "text-[#d81159]"
-                        : "hover:text-[#d81159]"
-                        }`}
-                    >
-                      {item.name}
-                      <ChevronDown
-                        size={16}
-                        className={`transition-transform ${sessionsOpen ? "rotate-180" : ""
-                          }`}
-                      />
-                    </button>
-                    {sessionsOpen && (
-                      <ul className="flex flex-col bg-gray-50">
-                        {sessionsItems.map((sub, subIndex) => {
-                          const subActive = location.pathname === sub.path;
-                          return (
-                            <li key={subIndex}>
-                              <Link
-                                to={sub.path}
-                                onClick={() => {
-                                  setSessionsOpen(false);
-                                  setIsOpen(false);
-                                }}
-                                className={`block px-8 py-2 transition ${subActive
-                                  ? "text-[#d81159] font-medium"
-                                  : "text-gray-700 hover:bg-blue-100 hover:text-[#d81159]"
-                                  }`}
-                              >
-                                {sub.name}
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    )}
-                  </div>
-                );
-              }
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-1">
+              {/* Home */}
+              <Link
+                to="/"
+                className="text-white px-3 py-2 text-sm hover:bg-[#1e4a8a] transition rounded"
+              >
+                Home
+              </Link>
 
-              return (
-                <li key={index}>
-                  <Link
-                    to={item.path}
-                    onClick={() => setIsOpen(false)}
-                    className={`block px-4 py-2 transition ${isActive ? "text-[#d81159]" : "hover:text-[#d81159]"
-                      }`}
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+              {/* About */}
+              <Link
+                to="/about"
+                className="text-white px-3 py-2 text-sm hover:bg-[#1e4a8a] transition rounded"
+              >
+                About
+              </Link>
+
+              {/* Call For Papers */}
+              <Link
+                to="/call-for-papers"
+                className="text-white px-3 py-2 text-sm hover:bg-[#1e4a8a] transition rounded"
+              >
+                Call For Papers
+              </Link>
+
+              {/* Committee Dropdown */}
+              <div className="relative dropdown">
+                <button
+                  onClick={() => {
+                    setCommitteeOpen(!committeeOpen);
+                    setSessionsOpen(false);
+                  }}
+                  className="flex items-center gap-1 text-white px-3 py-2 text-sm hover:bg-[#1e4a8a] transition rounded"
+                >
+                  Committee
+                  <ChevronDown size={14} className={`transition-transform ${committeeOpen ? "rotate-180" : ""}`} />
+                </button>
+                {committeeOpen && (
+                  <div className="absolute left-0 mt-2 bg-white shadow-lg rounded w-56 z-50">
+                    <ul className="py-1">
+                      {committeeItems.map((item, idx) => (
+                        <li key={idx}>
+                          <Link
+                            to={item.path}
+                            onClick={() => setCommitteeOpen(false)}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          >
+                            {item.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+
+              {/* Schedule */}
+              <Link
+                to="/schedule"
+                className="text-white px-3 py-2 text-sm hover:bg-[#1e4a8a] transition rounded"
+              >
+                Schedule
+              </Link>
+
+              {/* Sessions Dropdown */}
+              <div className="relative dropdown">
+                <button
+                  onClick={() => {
+                    setSessionsOpen(!sessionsOpen);
+                    setCommitteeOpen(false);
+                  }}
+                  className="flex items-center gap-1 text-white px-3 py-2 text-sm hover:bg-[#1e4a8a] transition rounded"
+                >
+                  Sessions
+                  <ChevronDown size={14} className={`transition-transform ${sessionsOpen ? "rotate-180" : ""}`} />
+                </button>
+                {sessionsOpen && (
+                  <div className="absolute left-0 mt-2 bg-white shadow-lg rounded w-56 z-50">
+                    <ul className="py-1">
+                      {sessionsItems.map((item, idx) => (
+                        <li key={idx}>
+                          <Link
+                            to={item.path}
+                            onClick={() => setSessionsOpen(false)}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          >
+                            {item.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+
+              {/* Speakers */}
+              <Link
+                to="/KeyNotes"
+                className="text-white px-3 py-2 text-sm hover:bg-[#1e4a8a] transition rounded"
+              >
+                Speakers
+              </Link>
+
+              {/* Sponsors */}
+              <Link
+                to="/sponsors"
+                className="text-white px-3 py-2 text-sm hover:bg-[#1e4a8a] transition rounded"
+              >
+                Sponsors
+              </Link>
+
+              {/* Registration */}
+              <Link
+                to="/registration"
+                className="text-white px-3 py-2 text-sm hover:bg-[#1e4a8a] transition rounded"
+              >
+                Registration
+              </Link>
+
+              {/* Contact */}
+              <Link
+                to="/contact"
+                className="text-white px-3 py-2 text-sm hover:bg-[#1e4a8a] transition rounded"
+              >
+                Contact
+              </Link>
+            </div>
+
+            {/* Mobile Hamburger */}
+            <button
+              className="lg:hidden text-white hover:text-gray-200 transition"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
-      )}
-    </nav>
+
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="lg:hidden bg-white border-t border-gray-200">
+            <div className="px-4 py-2 space-y-1">
+              <Link to="/" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+                Home
+              </Link>
+              <Link to="/about" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+                About
+              </Link>
+              <Link to="/call-for-papers" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+                Call For Papers
+              </Link>
+              
+              {/* Committee Dropdown */}
+              <div>
+                <button
+                  onClick={() => setCommitteeOpen(!committeeOpen)}
+                  className="w-full flex items-center justify-between px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded"
+                >
+                  Committee
+                  <ChevronDown size={14} className={`transition-transform ${committeeOpen ? "rotate-180" : ""}`} />
+                </button>
+                {committeeOpen && (
+                  <div className="pl-4">
+                    {committeeItems.map((item, idx) => (
+                      <Link
+                        key={idx}
+                        to={item.path}
+                        onClick={() => {
+                          setCommitteeOpen(false);
+                          setIsOpen(false);
+                        }}
+                        className="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded"
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <Link to="/schedule" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+                Schedule
+              </Link>
+
+              {/* Sessions Dropdown */}
+              <div>
+                <button
+                  onClick={() => setSessionsOpen(!sessionsOpen)}
+                  className="w-full flex items-center justify-between px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded"
+                >
+                  Sessions
+                  <ChevronDown size={14} className={`transition-transform ${sessionsOpen ? "rotate-180" : ""}`} />
+                </button>
+                {sessionsOpen && (
+                  <div className="pl-4">
+                    {sessionsItems.map((item, idx) => (
+                      <Link
+                        key={idx}
+                        to={item.path}
+                        onClick={() => {
+                          setSessionsOpen(false);
+                          setIsOpen(false);
+                        }}
+                        className="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded"
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <Link to="/KeyNotes" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+                Speakers
+              </Link>
+              <Link to="/sponsors" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+                Sponsors
+              </Link>
+              <Link to="/registration" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+                Registration
+              </Link>
+              <Link to="/contact" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+                Contact
+              </Link>
+            </div>
+          </div>
+        )}
+      </nav>
+    </>
   );
 }
 

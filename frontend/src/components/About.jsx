@@ -1,5 +1,7 @@
-import React from "react";
-import Navbar from "./Navbar";
+// Edited by Milad Ajaz 
+// https://m4milaad.github.io/ 
+
+import PageLayout from "./PageLayout";
 
 function About() {
   const sections = [
@@ -52,87 +54,90 @@ function About() {
   ];
 
   return (
-    <div className="flex flex-col">
-      <Navbar />
-      {/* Conference Header */}
-      <div className="relative z-10 text-center sm:px-8 w-auto space-y-4 text-[#0a0908] bg-black/50 text-white rounded-xl p-6 mt-25 ">
-        {/* Title */}
-        <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold drop-shadow-lg">
+    <PageLayout 
+      title="About 2AI Conference 2026"
+      subtitle="Learn more about the conference, venue, and organizers"
+    >
+      {/* Conference Info Banner */}
+      <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded mb-6">
+        <h2 className="text-xl font-bold text-gray-800 mb-2">
           2026 International Conference on Applied Artificial Intelligence (2AI)
-        </h1>
-
-        {/* Dates */}
-        <p className="text-lg sm:text-xl lg:text-2xl font-regular drop-shadow-md">
-          June 17 - 19, 2026 (Hybrid Mode)
+        </h2>
+        <p className="text-gray-700 mb-1">
+          <span className="font-semibold">Date:</span> June 17 - 19, 2026 (Hybrid Mode)
         </p>
-
-        {/* Location */}
-        <p className="text-sm sm:text-lg lg:text-xl leading-relaxed drop-shadow-md ">
-          at {"  "}
+        <p className="text-gray-700 mb-1">
+          <span className="font-semibold">Venue:</span>{" "}
           <a
             href="https://www.cukashmir.ac.in/"
             target="_blank"
             rel="noreferrer"
-            className="text-blue-300 underline hover:text-blue-400"
+            className="text-blue-600 underline hover:text-blue-800"
           >
             Central University of Kashmir, India
-          </a>{" "}
-          in collaboration with{"   "}
+          </a>
+        </p>
+        <p className="text-gray-700">
+          <span className="font-semibold">In collaboration with:</span>{" "}
           <a
             href="https://www.ai-research-lab.org/"
             target="_blank"
             rel="noreferrer"
-            className="text-blue-300 underline hover:text-blue-400"
+            className="text-blue-600 underline hover:text-blue-800"
           >
             USD AI Research, University of South Dakota (USA)
           </a>
         </p>
       </div>
-      {/* main section */}
-      <main className="flex flex-col bg-gray-50 py-10 px-2 sm:px-12 space-y-16 ">
-        {/* Loop through sections */}
+
+      {/* Sections */}
+      <div className="space-y-8">
         {sections.map((section, idx) => {
           const isEven = idx % 2 === 0;
           return (
             <div
               key={idx}
-              className={`flex flex-col md:flex-row items-stretch md:space-x-8 ${!isEven ? "md:flex-row-reverse md:space-x-reverse" : ""
-                }`}
+              className="bg-white rounded shadow-sm p-6"
             >
-              {/* Image */}
-              <div className="md:w-1/2 w-full mb-6 md:mb-0 flex-shrink-0 flex">
-                <img
-                  src={section.image}
-                  alt={section.title}
-                  className="w-full h-auto max-h-[900px] rounded-2xl shadow-lg object-cover"
-                  style={{ display: "block" }}
-                />
-              </div>
+              <div
+                className={`flex flex-col ${
+                  isEven ? "md:flex-row" : "md:flex-row-reverse"
+                } gap-6 items-start`}
+              >
+                {/* Image */}
+                <div className="md:w-1/2 w-full flex-shrink-0">
+                  <img
+                    src={section.image}
+                    alt={section.title}
+                    className="w-full h-64 md:h-80 rounded object-cover"
+                  />
+                </div>
 
-              {/* Text */}
-              <div className="md:w-1/2 w-full flex flex-col justify-center">
-                <h2 className="text-xl md:text-2xl font-bold text-blue-900 mb-3 text-center md:text-left">
-                  {section.title}
-                </h2>
-                <p className="text-gray-800 text-base md:text-lg leading-relaxed whitespace-pre-line font-regular">
-                  {section.text}
-                </p>
+                {/* Text */}
+                <div className="md:w-1/2 w-full">
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                    {section.title}
+                  </h3>
+                  <p className="text-gray-700 text-base leading-relaxed whitespace-pre-line">
+                    {section.text}
+                  </p>
+                </div>
               </div>
             </div>
-
           );
         })}
-        {/* Microsoft CMT Service Note */}
-        <div className="max-w-full mx-auto bg-blue-100 border-l-4 border-blue-600 p-6 rounded-lg shadow-sm">
-          <p className="text-gray-800 text-base md:text-lg leading-relaxed text-center">
-            The Microsoft CMT service was used for managing the peer-reviewing
-            process for this conference. This service was provided for free by
-            Microsoft and they bore all expenses, including costs for Azure
-            cloud services as well as for software development and support.
-          </p>
-        </div>
-      </main>
-    </div>
+      </div>
+
+      {/* Microsoft CMT Service Note */}
+      <div className="mt-8 bg-blue-100 border-l-4 border-blue-600 p-6 rounded shadow-sm">
+        <p className="text-gray-800 text-base leading-relaxed">
+          The Microsoft CMT service was used for managing the peer-reviewing
+          process for this conference. This service was provided for free by
+          Microsoft and they bore all expenses, including costs for Azure
+          cloud services as well as for software development and support.
+        </p>
+      </div>
+    </PageLayout>
   );
 }
 

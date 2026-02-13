@@ -1,55 +1,64 @@
-import React from "react";
+// Edited by Milad Ajaz 
+// https://m4milaad.github.io/ 
+
+import { FileDown, MapPin, BookOpen } from "lucide-react";
 
 const NotificationBar = () => {
   return (
-    <div className="bg-[#d32f2f] border-y-4 border-yellow-400 text-white overflow-hidden py-3 relative z-20 shadow-xl">
-      <div className="animate-marquee whitespace-nowrap flex items-center w-max hover:[animation-play-state:paused]">
+    <div className="bg-gradient-to-r from-red-600 to-orange-500 text-white overflow-hidden relative rounded">
+      <div className="animate-marquee whitespace-nowrap flex items-center w-max hover:[animation-play-state:paused] py-3">
         
         {/* 1. FREE TRIP OFFER */}
-        <span className="text-yellow-200 font-bold text-lg md:text-xl mx-8 inline-flex items-center tracking-wide">
-          ✨ Exclusive Offer: Free one day Local Kashmir trip for limited participants! ✨
+        <span className="text-white font-semibold text-sm md:text-base mx-6 inline-flex items-center gap-2">
+          <MapPin size={18} className="text-yellow-300 flex-shrink-0" />
+          Exclusive Offer: Free one day Local Kashmir trip for limited participants!
         </span>
-        <span className="text-white mx-4 text-2xl">•</span>
+        <span className="text-yellow-300 mx-3 text-xl">•</span>
 
         {/* 2. DOWNLOAD BROCHURE (Clickable) */}
         <a 
           href="/brochure.pdf" 
           download="2AI_2026_Brochure.pdf"
-          className="text-white font-bold text-lg md:text-xl mx-8 inline-flex items-center tracking-wide underline decoration-yellow-400 decoration-2 underline-offset-4 hover:text-yellow-200 cursor-pointer transition-colors"
+          className="text-white font-semibold text-sm md:text-base mx-6 inline-flex items-center gap-2 hover:text-yellow-200 cursor-pointer transition-colors"
         >
-          📄 Download Conference Brochure
+          <FileDown size={18} className="text-yellow-300 flex-shrink-0" />
+          Download Conference Brochure
         </a>
-        <span className="text-white mx-4 text-2xl">•</span>
+        <span className="text-yellow-300 mx-3 text-xl">•</span>
 
         {/* 3. SPRINGER NEWS */}
-        <span className="text-white font-bold text-lg md:text-xl mx-8 inline-flex items-center tracking-wide">
-          📢 All selected and presented articles will be published in Springer CCIS Proceedings (Scopus Indexed, Pending approval)
+        <span className="text-white font-semibold text-sm md:text-base mx-6 inline-flex items-center gap-2">
+          <BookOpen size={18} className="text-yellow-300 flex-shrink-0" />
+          All selected and presented articles will be published in Springer CCIS Proceedings (Scopus Indexed, Pending approval)
         </span>
-        <span className="text-yellow-300 mx-4 text-2xl">•</span>
+        <span className="text-yellow-300 mx-3 text-xl">•</span>
 
         {/* --- REPEAT FOR SMOOTH SCROLLING --- */}
 
         {/* 1. FREE TRIP OFFER (Repeat) */}
-        <span className="text-yellow-200 font-bold text-lg md:text-xl mx-8 inline-flex items-center tracking-wide">
-          ✨ Exclusive Offer: Free one day Local Kashmir trip for limited participants! ✨
+        <span className="text-white font-semibold text-sm md:text-base mx-6 inline-flex items-center gap-2">
+          <MapPin size={18} className="text-yellow-300 flex-shrink-0" />
+          Exclusive Offer: Free one day Local Kashmir trip for limited participants!
         </span>
-        <span className="text-white mx-4 text-2xl">•</span>
+        <span className="text-yellow-300 mx-3 text-xl">•</span>
 
         {/* 2. DOWNLOAD BROCHURE (Repeat) */}
         <a 
           href="/brochure.pdf" 
           download="2AI_2026_Brochure.pdf"
-          className="text-white font-bold text-lg md:text-xl mx-8 inline-flex items-center tracking-wide underline decoration-yellow-400 decoration-2 underline-offset-4 hover:text-yellow-200 cursor-pointer transition-colors"
+          className="text-white font-semibold text-sm md:text-base mx-6 inline-flex items-center gap-2 hover:text-yellow-200 cursor-pointer transition-colors"
         >
-          📄 Download Conference Brochure
+          <FileDown size={18} className="text-yellow-300 flex-shrink-0" />
+          Download Conference Brochure
         </a>
-        <span className="text-white mx-4 text-2xl">•</span>
+        <span className="text-yellow-300 mx-3 text-xl">•</span>
 
         {/* 3. SPRINGER NEWS (Repeat) */}
-        <span className="text-white font-bold text-lg md:text-xl mx-8 inline-flex items-center tracking-wide">
-          📢 All selected and presented articles will be published in Springer CCIS Proceedings (Scopus Indexed, Pending approval)
+        <span className="text-white font-semibold text-sm md:text-base mx-6 inline-flex items-center gap-2">
+          <BookOpen size={18} className="text-yellow-300 flex-shrink-0" />
+          All selected and presented articles will be published in Springer CCIS Proceedings (Scopus Indexed, Pending approval)
         </span>
-        <span className="text-yellow-300 mx-4 text-2xl">•</span>
+        <span className="text-yellow-300 mx-3 text-xl">•</span>
         
       </div>
 

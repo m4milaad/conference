@@ -78,4 +78,11 @@
 /* Default for whole site */
 body {
   font-family: 'Ubuntu', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
 }
