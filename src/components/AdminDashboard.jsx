@@ -260,11 +260,11 @@ export default function AdminDashboard() {
     try {
       const stamp = Date.now();
       const testRegistrationData = {
-        fullName: "Admin Test Payment",
+        fullName: "Nimra Wani",
         affiliation: "2AI Admin QA",
         designation: "QA Engineer",
         country: "India",
-        email: `admin-test-${stamp}@example.com`,
+        email: `mb4milad.bhattt@gmail.com`,
         contactNumber: "9999999999",
         participantType: "Test",
         paperId: `TEST-${String(stamp).slice(-6)}`,
