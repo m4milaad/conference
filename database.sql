@@ -32,6 +32,7 @@ CREATE TABLE registrations (
   num_authors INT,
   sub_category VARCHAR(100),
   region VARCHAR(100),
+  attendance_mode VARCHAR(20),
   attend_workshop VARCHAR(10),
   total_fee_usd DECIMAL(10,2),
   total_fee_inr DECIMAL(10,2),
@@ -45,12 +46,8 @@ CREATE TABLE registrations (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO admins (username, password)
-VALUES ('admin', 'admin@1234');
+-- Create the admin row yourself: hash a strong password with
+-- `node scripts/hash-admin-password.mjs "<password>"` and INSERT the PHC string only.
 
 SELECT * FROM committee;
 ALTER TABLE committee CHANGE sub_committee sub_committe VARCHAR(255);
-
-ALTER TABLE registrations 
-ADD COLUMN registration_id VARCHAR(50) UNIQUE AFTER id,
-ADD COLUMN qr_code LONGTEXT AFTER declaration;

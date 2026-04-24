@@ -1,0 +1,32 @@
+# Supabase CLI — https://supabase.com/docs/guides/cli/config
+# Run: supabase link --project-ref <ref>
+# Then: supabase db push   and   supabase functions deploy
+
+project_id = "conference"
+
+[functions.create-payment-order]
+verify_jwt = false
+
+[functions.verify-payment]
+verify_jwt = false
+
+[functions.register]
+verify_jwt = false
+
+[functions.verify-registration]
+verify_jwt = false
+
+[functions.admin-login]
+verify_jwt = false
+
+[functions.admin-verify]
+verify_jwt = false
+
+[functions.admin-registrations]
+verify_jwt = false
+
+[functions.admin-delete-registration]
+verify_jwt = false
+
+[functions.admin-update-registration]
+verify_jwt = false
