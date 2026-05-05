@@ -41,3 +41,6 @@ dist-ssr/
 # Misc
 *.pid
 *.seed
+
+# Supabase
+supabase/.temp/

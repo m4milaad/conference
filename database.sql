@@ -45,9 +45,5 @@ CREATE TABLE registrations (
   payment_verified BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
--- Create the admin row yourself: hash a strong password with
--- `node scripts/hash-admin-password.mjs "<password>"` and INSERT the PHC string only.
-
 SELECT * FROM committee;
 ALTER TABLE committee CHANGE sub_committee sub_committe VARCHAR(255);

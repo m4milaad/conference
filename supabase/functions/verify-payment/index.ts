@@ -40,10 +40,15 @@ function parseAmpersandResponse(raw: string): Record<string, string> {
   return out;
 }
 
-async function verifyViaIciciVerifyUrl(merchantId: string, referenceNo: string): Promise<string | null> {
+async function verifyViaIciciVerifyUrl(
+  merchantId: string,
+  referenceNo: string
+): Promise<{ status: string | null; uniqueRefNumber: string | null; rawResponse: string }> {
   const mid = String(merchantId ?? "").trim();
   const ref = String(referenceNo ?? "").trim();
-  if (!mid || !ref) return null;
+  if (!mid || !ref) {
+    return { status: null, uniqueRefNumber: null, rawResponse: "" };
+  }
 
   const verifyUrl = new URL("https://eazypay.icicibank.com/EazyPGVerify");
   verifyUrl.searchParams.set("ezpaytranid", "");
@@ -54,15 +59,46 @@ async function verifyViaIciciVerifyUrl(merchantId: string, referenceNo: string):
   verifyUrl.searchParams.set("pgreferenceno", ref);
 
   try {
+    console.log("[verify-payment] Calling ICICI EazyPGVerify API:", verifyUrl.toString());
     const resp = await fetch(verifyUrl.toString(), { method: "GET" });
-    if (!resp.ok) return null;
+    if (!resp.ok) {
+      console.log("[verify-payment] EazyPGVerify API returned non-OK status:", resp.status);
+      return { status: null, uniqueRefNumber: null, rawResponse: "" };
+    }
+    
     const body = await resp.text();
+    console.log("[verify-payment] EazyPGVerify raw response:", body);
+    
     const parsed = parseAmpersandResponse(body);
+    console.log("[verify-payment] EazyPGVerify parsed response:", JSON.stringify(parsed, null, 2));
+    
     const status = parsed.status ?? parsed.Status ?? parsed.STATUS ?? null;
-    return status ? String(status).trim() : null;
+    
+    // Try to extract the actual transaction ID from the verification response
+    // According to ICICI docs, this should be the "Unique Ref Number" (16 digits)
+    const uniqueRefNumber = 
+      parsed.ezpaytranid ?? 
+      parsed.EzPayTranId ?? 
+      parsed.EZPAYTRANID ??
+      parsed.uniquerefnumber ??
+      parsed.UniqueRefNumber ??
+      parsed.unique_ref_number ??
+      null;
+    
+    if (uniqueRefNumber) {
+      console.log("[verify-payment] ✓ Extracted Unique Ref Number from verification:", uniqueRefNumber);
+    } else {
+      console.log("[verify-payment] ✗ Could not extract Unique Ref Number from verification response");
+    }
+    
+    return {
+      status: status ? String(status).trim() : null,
+      uniqueRefNumber: uniqueRefNumber ? String(uniqueRefNumber).trim() : null,
+      rawResponse: body
+    };
   } catch (e) {
     console.error("[verify-payment] EazyPGVerify lookup failed:", e);
-    return null;
+    return { status: null, uniqueRefNumber: null, rawResponse: "" };
   }
 }
 
@@ -177,9 +213,17 @@ Deno.serve(async (req) => {
     if (!responseCode) {
       // Fallback path for merchants where return URL does not include full response packet.
       // Confirm status directly from ICICI Verify URL using merchant ID + PG reference no.
-      const verifyStatus = await verifyViaIciciVerifyUrl(merchantId, expectedOrderId);
-      const normalizedStatus = String(verifyStatus ?? "").trim().toLowerCase();
+      console.log("[verify-payment] Response_Code missing, using fallback verification via ICICI API");
+      console.log("[verify-payment] Merchant ID:", merchantId);
+      console.log("[verify-payment] Expected Order ID (Reference No):", expectedOrderId);
+      
+      const verifyResult = await verifyViaIciciVerifyUrl(merchantId, expectedOrderId);
+      const normalizedStatus = String(verifyResult.status ?? "").trim().toLowerCase();
       const successLike = normalizedStatus === "success" || normalizedStatus === "rip" || normalizedStatus === "sip";
+      
+      console.log("[verify-payment] Verification status:", verifyResult.status);
+      console.log("[verify-payment] Success-like status:", successLike);
+      
       if (successLike) {
         if (!registrantEmail || !registrantEmail.includes("@")) {
           return corsJson({
@@ -200,6 +244,15 @@ Deno.serve(async (req) => {
           );
         }
 
+        // Use the actual bank transaction ID if available, otherwise fall back to merchant reference
+        const transactionId = verifyResult.uniqueRefNumber || expectedOrderId;
+        
+        if (verifyResult.uniqueRefNumber) {
+          console.log("[verify-payment] ✓ Using actual bank transaction ID:", transactionId);
+        } else {
+          console.log("[verify-payment] ⚠ Bank transaction ID not available, using merchant reference:", transactionId);
+        }
+
         const { proof, expiresAt } = await createPaymentCompletionProof(
           completionSecret,
           expectedOrderId,
@@ -210,7 +263,7 @@ Deno.serve(async (req) => {
           success: true,
           verified: true,
           gateway: "icici-eazypay",
-          transactionId: expectedOrderId,
+          transactionId: transactionId,
           paymentStatus: "success",
           completionProof: proof,
           completionProofExpiresAt: expiresAt,
@@ -221,7 +274,7 @@ Deno.serve(async (req) => {
         success: false,
         verified: false,
         gateway: "icici-eazypay",
-        error: verifyStatus ? `Missing Response_Code (verify status: ${verifyStatus})` : "Missing Response_Code",
+        error: verifyResult.status ? `Missing Response_Code (verify status: ${verifyResult.status})` : "Missing Response_Code",
       });
     }
 
