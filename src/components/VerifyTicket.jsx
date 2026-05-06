@@ -317,6 +317,25 @@ function VerifyTicket() {
             </div>
             <span className="tag">2AI-2026</span>
           </div>
+          
+          {/* Back to Admin Dashboard Button */}
+          <div style={{ marginBottom: "20px" }}>
+            <button
+              onClick={() => window.location.href = '/admin'}
+              className="verify-btn"
+              style={{ 
+                padding: "10px 20px",
+                fontSize: "10px",
+                gap: "8px"
+              }}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              Back to Admin Dashboard
+            </button>
+          </div>
+          
           <p style={{ fontSize: "12px", color: "#555", letterSpacing: "0.03em", lineHeight: 1.6 }}>
             Scan QR code with camera or enter Registration ID manually to verify tickets.
           </p>
