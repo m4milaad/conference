@@ -93,7 +93,17 @@ function PaymentCallback() {
       } catch (error) {
         console.error("Registration completion error:", error);
         setStatus("error");
-        setMessage("Payment was received but registration could not be saved. Please contact the help desk.");
+        // Check for exemption code race condition
+        const errMsg = error?.message || "";
+        if (errMsg.includes("exemption code") || errMsg.includes("exemption_code_claimed")) {
+          setMessage(
+            "Your payment went through, but the late fee exemption code you used was claimed by another " +
+            "registration moments ago. Please contact the help desk with your order reference — " +
+            "they will either apply a different exemption code or process a partial refund for the fee difference."
+          );
+        } else {
+          setMessage("Payment was received but registration could not be saved. Please contact the help desk.");
+        }
       }
     },
     [navigate],

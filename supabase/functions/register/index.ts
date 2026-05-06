@@ -64,11 +64,16 @@ Deno.serve(async (req) => {
       paymentVerified,
       paymentOrderRef,
       paymentCompletionProof,
+      exemptionCode,
     } = body;
 
     if (!fullName || !affiliation || !email || !transactionId) {
       return corsJson({ error: "Missing required fields" }, 400);
     }
+
+    // ── Validate exemption code format (actual atomic claim happens after insert) ──
+    const normalizedExemptionCode =
+      typeof exemptionCode === "string" ? exemptionCode.trim().toUpperCase() : "";
 
     const wantsPaid = truthyPaymentVerified(paymentVerified);
     const iciciOnline = wantsPaid && isIciciEazypayMode(modeOfPayment);
@@ -166,6 +171,43 @@ Deno.serve(async (req) => {
     if (error) {
       console.error(error);
       return corsJson({ error: "Database error" }, 500);
+    }
+
+    // ── Atomically claim exemption code ──────────────────────────
+    // Single UPDATE with WHERE guard: only succeeds if code exists AND is still unclaimed.
+    // If another user claimed it between validate-exemption-code and now, data will be empty.
+    if (normalizedExemptionCode) {
+      const { data: claimed, error: claimErr } = await supabase
+        .from("exemption_codes")
+        .update({
+          used_by_registration_id: registrationId,
+          used_at: new Date().toISOString(),
+        })
+        .eq("code", normalizedExemptionCode)
+        .is("used_by_registration_id", null)
+        .select("id");
+
+      if (claimErr) {
+        console.error("Exemption code claim error:", claimErr);
+        // Code claim failed but registration succeeded — proceed without exemption
+      } else if (!claimed || claimed.length === 0) {
+        // Race condition: code was claimed by another registration between
+        // validate-exemption-code and this submit. Roll back the registration
+        // since the fee was calculated with the exemption applied.
+        const { error: rollbackErr } = await supabase
+          .from("registrations")
+          .delete()
+          .eq("registration_id", registrationId);
+
+        if (rollbackErr) {
+          console.error("Failed to rollback registration after code race:", rollbackErr);
+        }
+
+        return corsJson({
+          error: "This exemption code was just claimed by another registration. Please re-submit without the code, or use a different code.",
+          errorCode: "exemption_code_claimed",
+        }, 409);
+      }
     }
 
     return corsJson({

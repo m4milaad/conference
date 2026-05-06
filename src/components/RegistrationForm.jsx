@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { startGatewayCheckout } from "./PaymentGateway";
 import { declarationCheckboxText } from "../content/conferencePolicies";
+import { invokeEdge } from "../lib/supabaseFunctions";
 import {
   loadRegistrationDraft,
   saveRegistrationDraft,
@@ -27,6 +28,7 @@ const DEFAULT_FORM = {
   transactionId: "",
   dateOfPayment: "",
   declaration: false,
+  exemptionCode: "",
 };
 
 const FX_API_URL = "https://fxapi.app/api/INR/USD.json";
@@ -59,6 +61,12 @@ function RegistrationForm() {
   const [fxLoaded, setFxLoaded] = useState(false);
 
   const [fee, setFee] = useState({ usd: 0, inr: 0 });
+  const [baseFee, setBaseFee] = useState({ usd: 0, inr: 0 }); 
+
+
+  const [exemptionStatus, setExemptionStatus] = useState("idle");
+  const [exemptionMsg, setExemptionMsg] = useState("");
+  const exemptionTimer = useRef(null);
 
   const DESIGNATIONS = [
     "UG Student",
@@ -140,11 +148,16 @@ function RegistrationForm() {
       usd += 20;
     }
 
-    if (isLateFeeActive()) {
-      usd *= LATE_FEE_MULTIPLIER;
-    }
+    // Base fee WITH late surcharge (used for strikethrough display)
+    const lateUsd = isLateFeeActive()
+      ? Math.round(usd * LATE_FEE_MULTIPLIER * 100) / 100
+      : Math.round(usd * 100) / 100;
+    setBaseFee({ usd: lateUsd, inr: roundToNearestRupee(lateUsd * usdToInrRate) });
 
-    const finalUsd = Math.round(usd * 100) / 100;
+    // Final fee: skip late fee multiplier if valid exemption code
+    const finalUsd = isLateFeeActive() && exemptionStatus === "valid"
+      ? Math.round(usd * 100) / 100
+      : lateUsd;
     const inr = roundToNearestRupee(finalUsd * usdToInrRate);
     setFee({ usd: finalUsd, inr });
   }, [
@@ -153,7 +166,45 @@ function RegistrationForm() {
     formData.region,
     formData.attendWorkshop,
     usdToInrRate,
+    exemptionStatus,
   ]);
+
+  // ── Exemption code validation (debounced) ──────────────────────
+  const validateExemptionCode = useCallback(async (code) => {
+    const trimmed = code.trim().toUpperCase();
+    if (!trimmed) {
+      setExemptionStatus("idle");
+      setExemptionMsg("");
+      return;
+    }
+    setExemptionStatus("checking");
+    setExemptionMsg("Validating…");
+    try {
+      const result = await invokeEdge("validate-exemption-code", { code: trimmed });
+      if (result?.valid) {
+        setExemptionStatus("valid");
+        setExemptionMsg(result.msg || "Code accepted — late fee waived!");
+      } else {
+        setExemptionStatus("invalid");
+        setExemptionMsg(result?.msg || "Invalid code");
+      }
+    } catch (e) {
+      setExemptionStatus("invalid");
+      setExemptionMsg(e?.message || "Could not validate code");
+    }
+  }, []);
+
+  const handleExemptionCodeChange = (e) => {
+    const value = e.target.value;
+    setFormData((prev) => ({ ...prev, exemptionCode: value }));
+    if (exemptionTimer.current) clearTimeout(exemptionTimer.current);
+    if (!value.trim()) {
+      setExemptionStatus("idle");
+      setExemptionMsg("");
+      return;
+    }
+    exemptionTimer.current = setTimeout(() => validateExemptionCode(value), 600);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -166,6 +217,7 @@ function RegistrationForm() {
       ...formData,
       totalFeeUsd: fee.usd,
       totalFeeInr: fee.inr,
+      exemptionCode: exemptionStatus === "valid" ? formData.exemptionCode.trim().toUpperCase() : undefined,
     };
 
     sessionStorage.setItem("pendingRegistration", JSON.stringify(registrationPayload));
@@ -561,11 +613,24 @@ function RegistrationForm() {
               Step 3: Payment & Declaration
             </h4>
 
+            {/* Amount Due Banner — shows strikethrough when exemption applied */}
             <div className="bg-[#5E6AD2] dark:bg-[#c9a86a] text-white dark:text-zinc-950 rounded p-4 mb-6 text-center shadow">
               <p className="text-sm opacity-90 mb-1">Amount due</p>
-              <p className="text-2xl font-bold">
-                ₹ {fee.inr} ($ {fee.usd})
-              </p>
+              {isLateFeeActive() && exemptionStatus === "valid" ? (
+                <>
+                  <p className="text-base font-semibold line-through opacity-60 mb-0.5">
+                    ₹ {baseFee.inr} ($ {baseFee.usd})
+                  </p>
+                  <p className="text-2xl font-bold">
+                    ₹ {fee.inr} ($ {fee.usd})
+                  </p>
+                  <p className="text-xs mt-1 opacity-90 font-semibold">✓ Late fee exemption applied</p>
+                </>
+              ) : (
+                <p className="text-2xl font-bold">
+                  ₹ {fee.inr} ($ {fee.usd})
+                </p>
+              )}
             </div>
 
             <section className="linear-card mb-8 bg-white dark:bg-zinc-900/50 p-6 border border-black/[0.08] dark:border-zinc-700">
@@ -579,6 +644,69 @@ function RegistrationForm() {
                 <li>Do not close the browser until you return to the confirmation page</li>
               </ul>
             </section>
+
+            {/* Exemption Code Input — only shown in Step 3 when late fee is active */}
+            {isLateFeeActive() && (
+              <section className="bg-white dark:bg-white/5 p-5 rounded-lg border border-black/[0.06] dark:border-white/10">
+                <div className="mb-4 pb-3 border-b border-gray-200 dark:border-zinc-700">
+                  <h4 className="text-md font-bold text-zinc-950 dark:text-zinc-100">
+                    Late Fee Exemption Code
+                  </h4>
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+                    Enter an approved code to waive the 20% late fee before you proceed to payment.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <label
+                    htmlFor="exemptionCode"
+                    className="block text-xs font-semibold uppercase tracking-wide text-zinc-600 dark:text-zinc-400"
+                  >
+                    Exemption Code
+                  </label>
+                  <input
+                    id="exemptionCode"
+                    type="text"
+                    name="exemptionCode"
+                    value={formData.exemptionCode}
+                    onChange={handleExemptionCodeChange}
+                    placeholder="e.g. EXEMPT-A3B7K2PQ"
+                    autoComplete="off"
+                    className={`w-full border rounded p-3 font-mono text-sm uppercase tracking-wider focus:ring-2 outline-none transition-all ${
+                      exemptionStatus === "valid"
+                        ? "border-emerald-400 bg-emerald-50 dark:bg-emerald-950/20 focus:ring-emerald-300 dark:focus:ring-emerald-700"
+                        : exemptionStatus === "invalid"
+                        ? "border-red-400 bg-red-50 dark:bg-red-950/20 focus:ring-red-300 dark:focus:ring-red-700"
+                        : "border-gray-300 dark:border-zinc-700 focus:ring-[#5E6AD2] dark:focus:ring-[#c9a86a]"
+                    }`}
+                  />
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                    Codes are checked automatically as you type.
+                  </p>
+                </div>
+
+                {exemptionMsg && (
+                  <p className={`mt-3 text-sm font-semibold flex items-center gap-1.5 ${
+                    exemptionStatus === "valid"
+                      ? "text-emerald-600 dark:text-emerald-400"
+                      : exemptionStatus === "checking"
+                      ? "text-zinc-500 dark:text-zinc-400"
+                      : "text-red-600 dark:text-red-400"
+                  }`}>
+                    {exemptionStatus === "valid" && (
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"/></svg>
+                    )}
+                    {exemptionStatus === "invalid" && (
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    )}
+                    {exemptionStatus === "checking" && (
+                      <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+                    )}
+                    {exemptionMsg}
+                  </p>
+                )}
+              </section>
+            )}
 
             <section className="bg-white dark:bg-white/5 p-5 rounded border border-gray-200 dark:border-zinc-700 dark:border-white/10">
               <label className="flex items-start space-x-3 text-sm text-zinc-800 dark:text-zinc-300 cursor-pointer">

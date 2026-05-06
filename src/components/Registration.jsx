@@ -280,7 +280,7 @@ function Registration() {
                   A <span className="font-black text-red-700 underline decoration-red-200 underline-offset-4 dark:text-red-400">20% late fee</span> applies after May 5, 2026.
                   Please complete your registration early to avoid additional charges.
                   {isLateFeeActive() && (
-                    <span className="mt-2 inline-block bg-red-100 px-2 py-1 font-bold text-red-700 dark:bg-red-900/40 dark:text-red-300">
+                    <span className="mt-2 inline-flex items-center rounded-md border border-red-700 bg-red-600 px-3 py-1.5 text-sm font-bold text-white shadow-sm dark:border-red-500 dark:bg-red-600 dark:text-white">
                       ⚠ Currently active!
                     </span>
                   )}

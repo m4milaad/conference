@@ -23,7 +23,10 @@ import {
   X,
   FileText,
   Mail,
-  UserPlus
+  UserPlus,
+  Ticket,
+  Copy,
+  Plus
 } from "lucide-react";
 
 function formatDate(iso) {
@@ -64,6 +67,14 @@ export default function AdminDashboard() {
   const [testPayBusy, setTestPayBusy] = useState(false);
   const [addForm, setAddForm] = useState(null);
   const [addSaving, setAddSaving] = useState(false);
+
+  // Exemption codes state
+  const [exemptionCodes, setExemptionCodes] = useState([]);
+  const [exemptionLoading, setExemptionLoading] = useState(false);
+  const [exemptionGenerateLabel, setExemptionGenerateLabel] = useState("");
+  const [exemptionGenerateCount, setExemptionGenerateCount] = useState(1);
+  const [exemptionBusy, setExemptionBusy] = useState(false);
+  const [exemptionDeleteBusy, setExemptionDeleteBusy] = useState("");
 
   useEffect(() => {
     let cancelled = false;
@@ -120,6 +131,29 @@ export default function AdminDashboard() {
     return () => {
       cancelled = true;
     };
+  }, [status]);
+
+  // Load exemption codes
+  useEffect(() => {
+    if (status !== "ok") return;
+    let cancelled = false;
+    (async () => {
+      const token = getAdminToken();
+      if (!token) return;
+      setExemptionLoading(true);
+      try {
+        const result = await invokeEdge("admin-exemption-codes", { token, action: "list" });
+        if (cancelled) return;
+        if (result?.success && Array.isArray(result.codes)) {
+          setExemptionCodes(result.codes);
+        }
+      } catch (e) {
+        console.error("Could not load exemption codes", e);
+      } finally {
+        if (!cancelled) setExemptionLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
   }, [status]);
 
   const stats = useMemo(() => {
@@ -395,6 +429,77 @@ export default function AdminDashboard() {
     } finally {
       setMailBusyId("");
     }
+  };
+
+  const generateExemptionCodes = async () => {
+    setActionMsg("");
+    setActionTone("error");
+    const token = getAdminToken();
+    if (!token) return;
+    setExemptionBusy(true);
+    try {
+      const result = await invokeEdge("admin-exemption-codes", {
+        token,
+        action: "generate",
+        label: exemptionGenerateLabel.trim(),
+        count: exemptionGenerateCount,
+      });
+      if (result?.success && Array.isArray(result.codes)) {
+        setExemptionCodes((prev) => [...result.codes, ...prev]);
+        setExemptionGenerateLabel("");
+        setExemptionGenerateCount(1);
+        setActionTone("success");
+        setActionMsg(`Generated ${result.codes.length} exemption code(s).`);
+      } else {
+        setActionTone("error");
+        setActionMsg(result?.msg || "Could not generate codes");
+      }
+    } catch (e) {
+      setActionTone("error");
+      setActionMsg(e?.message || "Could not generate codes");
+    } finally {
+      setExemptionBusy(false);
+    }
+  };
+
+  const deleteExemptionCode = async (code) => {
+    const ok = window.confirm(`Delete exemption code ${code}? This cannot be undone.`);
+    if (!ok) return;
+    setActionMsg("");
+    setActionTone("error");
+    const token = getAdminToken();
+    if (!token) return;
+    setExemptionDeleteBusy(code);
+    try {
+      const result = await invokeEdge("admin-exemption-codes", {
+        token,
+        action: "delete",
+        code,
+      });
+      if (result?.success) {
+        setExemptionCodes((prev) => prev.filter((c) => c.code !== code));
+        setActionTone("success");
+        setActionMsg("Exemption code deleted.");
+      } else {
+        setActionTone("error");
+        setActionMsg(result?.msg || "Could not delete code");
+      }
+    } catch (e) {
+      setActionTone("error");
+      setActionMsg(e?.message || "Could not delete code");
+    } finally {
+      setExemptionDeleteBusy("");
+    }
+  };
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setActionTone("success");
+      setActionMsg(`Copied: ${text}`);
+    }).catch(() => {
+      setActionTone("error");
+      setActionMsg("Failed to copy");
+    });
   };
 
   if (status === "checking") {
@@ -915,6 +1020,174 @@ export default function AdminDashboard() {
                 <UserPlus size={14} /> Add Manual Registration
               </button>
             </div>
+          </div>
+        </div>
+
+        {/* Exemption Codes Section */}
+        <div className="linear-card overflow-hidden p-0">
+          <div className="px-6 py-5 border-b border-[var(--border-soft)] flex flex-col md:flex-row md:items-center justify-between gap-4 bg-amber-500/5">
+            <h3 className="text-lg font-bold text-[var(--text-main)] flex items-center gap-2">
+              <Ticket size={20} className="text-amber-600" />
+              Late Fee Exemption Codes
+              <span className="text-xs font-normal text-amber-700 bg-amber-500/10 px-2 py-0.5 rounded-full">
+                {exemptionCodes.length}
+              </span>
+            </h3>
+          </div>
+
+          <div className="px-6 py-4 border-b border-[var(--border-soft)] bg-[var(--surface-soft)]/30">
+            <div className="flex flex-col sm:flex-row gap-3 items-end">
+              <label className="flex-1 block">
+                <span className="text-xs font-bold text-[var(--text-soft)] ml-1">Label (optional)</span>
+                <input
+                  type="text"
+                  placeholder="e.g. Speaker X, Sponsor Y"
+                  className="mt-1 w-full linear-input"
+                  value={exemptionGenerateLabel}
+                  onChange={(e) => setExemptionGenerateLabel(e.target.value)}
+                />
+              </label>
+              <label className="w-24 block">
+                <span className="text-xs font-bold text-[var(--text-soft)] ml-1">Count</span>
+                <input
+                  type="number"
+                  min="1"
+                  max="50"
+                  className="mt-1 w-full linear-input"
+                  value={exemptionGenerateCount}
+                  onChange={(e) => setExemptionGenerateCount(Math.max(1, Math.min(50, Number(e.target.value) || 1)))}
+                />
+              </label>
+              <button
+                type="button"
+                disabled={exemptionBusy}
+                onClick={generateExemptionCodes}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold shadow-sm transition-colors disabled:opacity-50"
+              >
+                <Plus size={16} />
+                {exemptionBusy ? "Generating…" : "Generate"}
+              </button>
+            </div>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-amber-500/10 text-[11px] font-bold uppercase tracking-wider text-amber-700">
+                  <th className="px-6 py-3">Code</th>
+                  <th className="px-6 py-3">Label</th>
+                  <th className="px-6 py-3">Created By</th>
+                  <th className="px-6 py-3">Status</th>
+                  <th className="px-6 py-3">Used By</th>
+                  <th className="px-6 py-3">Created</th>
+                  <th className="px-6 py-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-black/[0.05] dark:divide-white/5">
+                {exemptionLoading ? (
+                  <tr>
+                    <td colSpan={7} className="px-6 py-12 text-center">
+                      <div className="flex flex-col items-center gap-3">
+                        <Ticket className="text-amber-500 animate-pulse" size={28} />
+                        <p className="text-sm text-zinc-500">Loading codes…</p>
+                      </div>
+                    </td>
+                  </tr>
+                ) : exemptionCodes.length === 0 ? (
+                  <tr>
+                    <td colSpan={7} className="px-6 py-12 text-center text-zinc-500 italic text-sm">
+                      No exemption codes yet. Generate one above.
+                    </td>
+                  </tr>
+                ) : (
+                  exemptionCodes.map((c) => (
+                    <tr key={c.code} className="group hover:bg-[var(--surface-soft)] transition-colors">
+                      <td className="px-6 py-3">
+                        <span className="font-mono text-sm font-bold text-[var(--text-main)] tracking-wider">
+                          {c.code}
+                        </span>
+                      </td>
+                      <td className="px-6 py-3">
+                        <span className="text-sm text-[var(--text-soft)]">{c.label || "—"}</span>
+                      </td>
+                      <td className="px-6 py-3">
+                        <span className="text-xs font-medium text-[var(--text-soft)]">{c.created_by || "—"}</span>
+                      </td>
+                      <td className="px-6 py-3">
+                        {c.used_by_registration_id ? (
+                          <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-zinc-500/10 text-zinc-600 text-[10px] font-bold w-fit">
+                            <CheckCircle size={10} /> Used
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-700 text-[10px] font-bold">
+                            <Clock size={10} /> Available
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-6 py-3">
+                        {c.used_by_registration_id ? (() => {
+                          const linkedReg =
+                            c.used_by_registration ||
+                            regs.find((r) => r.registration_id === c.used_by_registration_id) ||
+                            null;
+                          const linkedName = linkedReg?.full_name || "Unknown participant";
+                          const linkedEmail = linkedReg?.email || "";
+                          return (
+                            <div className="flex flex-col gap-0.5">
+                              <button
+                                type="button"
+                                onClick={() => setQuery(c.used_by_registration_id)}
+                                className="text-[10px] font-mono text-[var(--brand)] hover:underline text-left cursor-pointer"
+                                title="Click to filter registrations table"
+                              >
+                                {c.used_by_registration_id}
+                              </button>
+                              <span className="text-[11px] font-semibold text-[var(--text-main)]">
+                                {linkedName}
+                              </span>
+                              {linkedEmail && (
+                                <span className="text-[10px] text-[var(--text-soft)]">
+                                  {linkedEmail}
+                                </span>
+                              )}
+                              {c.used_at && (
+                                <span className="text-[10px] text-[var(--text-soft)]">
+                                  on {formatDate(c.used_at)}
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })() : (
+                          <span className="text-xs text-[var(--text-soft)]">—</span>
+                        )}
+                      </td>
+                      <td className="px-6 py-3">
+                        <span className="text-xs text-[var(--text-soft)]">{formatDate(c.created_at)}</span>
+                      </td>
+                      <td className="px-6 py-3 text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <button
+                            title="Copy Code"
+                            onClick={() => copyToClipboard(c.code)}
+                            className="p-2 rounded-lg text-zinc-400 hover:text-amber-600 hover:bg-amber-500/10 transition-all"
+                          >
+                            <Copy size={16} />
+                          </button>
+                          <button
+                            title="Delete Code"
+                            disabled={exemptionDeleteBusy === c.code}
+                            onClick={() => deleteExemptionCode(c.code)}
+                            className="p-2 rounded-lg text-zinc-400 hover:text-red-500 hover:bg-red-500/10 transition-all disabled:opacity-30"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
 
