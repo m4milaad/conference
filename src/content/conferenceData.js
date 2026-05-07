@@ -534,6 +534,11 @@ The conference covered various themes including the application of AI in educati
     },
     // 2026 data continues to be used from existing hardcoded components
     // Components fall through to default rendering when year is 2026
+    sponsorship: {
+      sponsors: [
+        { name: "ICICI Bank", logo: "/sponser_iciciBank.jpg", tier: "Gold" },
+      ],
+    },
   },
 };
 

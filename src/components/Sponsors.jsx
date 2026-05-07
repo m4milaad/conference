@@ -45,7 +45,44 @@ function Sponsors() {
       subtitle={`Sponsorship tiers and partnership benefits for the ${selectedYear} International Conference on Applied Artificial Intelligence`}
     >
       <div className="space-y-10">
+        {/* Sponsor Logos */}
+        {sponsorsData.sponsors && sponsorsData.sponsors.length > 0 && (
+          <div className="linear-card overflow-hidden">
+            <div className="p-6 border-b border-black/5 dark:border-white/5">
+              <h2 className="text-2xl font-bold text-zinc-950 dark:text-zinc-100">Our Sponsors</h2>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Organizations supporting the conference</p>
+            </div>
+            <div className="p-8">
+              <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                {sponsorsData.sponsors.map((sponsor, idx) => (
+                  <div
+                    key={idx}
+                    className="group flex flex-col items-center gap-3 rounded-xl border border-black/[0.06] dark:border-white/10 bg-white dark:bg-white/5 p-6 transition-all hover:-translate-y-1 hover:shadow-lg hover:border-[#c9a86a]/40"
+                  >
+                    <div className="h-24 w-full flex items-center justify-center overflow-hidden rounded-lg bg-white p-3">
+                      <img
+                        src={sponsor.logo}
+                        alt={sponsor.name}
+                        className="max-h-full max-w-full object-contain transition-transform group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{sponsor.name}</p>
+                      {sponsor.tier && (
+                        <span className="mt-1 inline-block text-[10px] font-bold uppercase tracking-widest text-[#c9a86a]">
+                          {sponsor.tier} Sponsor
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Tier Cards */}
+        {sponsorsData.tiers && sponsorsData.tiers.length > 0 && (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {sponsorsData.tiers.map((tier, idx) => (
             <div key={idx} className="linear-card group flex flex-col overflow-hidden transition-all hover:border-[#c9a86a]/40">
@@ -71,8 +108,10 @@ function Sponsors() {
             </div>
           ))}
         </div>
+        )}
 
         {/* Benefits Comparison Table */}
+        {sponsorsData.tiers && sponsorsData.benefitList && (
         <div className="linear-card overflow-hidden">
           <div className="p-6 border-b border-black/5 dark:border-white/5">
             <h2 className="text-2xl font-bold text-zinc-950 dark:text-zinc-100">Benefit Matrix</h2>
@@ -114,6 +153,7 @@ function Sponsors() {
             </table>
           </div>
         </div>
+        )}
 
         <div className="linear-card border border-[#c9a86a]/20 bg-[#c9a86a]/10 p-8 text-center">
           <h3 className="text-xl font-bold text-zinc-950 dark:text-zinc-100 mb-2 uppercase tracking-wide">Interested in Partnering?</h3>

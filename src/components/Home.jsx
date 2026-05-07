@@ -360,13 +360,54 @@ function Home() {
           <h2 className="text-2xl font-bold text-zinc-950">Sponsors & Partners</h2>
           
           {is2024 && data.sponsorship ? (
-            <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-              {data.sponsorship.tiers.map((tier, idx) => (
-                <div key={idx} className="flex flex-col items-center p-4 rounded-xl border border-black/[0.06] bg-white/45 text-center transition hover:-translate-y-0.5">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-1">{tier.name.split(' ')[0]}</span>
-                  <span className="text-base font-black text-[#c9a86a]">{tier.amount}</span>
+            <div className="mt-6 space-y-6">
+              {data.sponsorship.sponsors && data.sponsorship.sponsors.length > 0 && (
+                <div className="flex flex-wrap justify-center gap-6">
+                  {data.sponsorship.sponsors.map((sponsor, idx) => (
+                    <div key={idx} className="flex flex-col items-center gap-2 p-4 rounded-xl border border-black/[0.06] bg-white/45 transition hover:-translate-y-0.5">
+                      <div className="h-16 w-32 flex items-center justify-center overflow-hidden rounded-lg bg-white p-2">
+                        <img
+                          src={sponsor.logo}
+                          alt={sponsor.name}
+                          className="max-h-full max-w-full object-contain"
+                        />
+                      </div>
+                      <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300">{sponsor.name}</span>
+                      {sponsor.tier && (
+                        <span className="text-[9px] font-bold uppercase tracking-widest text-[#c9a86a]">{sponsor.tier}</span>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {data.sponsorship.tiers.map((tier, idx) => (
+                  <div key={idx} className="flex flex-col items-center p-4 rounded-xl border border-black/[0.06] bg-white/45 text-center transition hover:-translate-y-0.5">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-1">{tier.name.split(' ')[0]}</span>
+                    <span className="text-base font-black text-[#c9a86a]">{tier.amount}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : data.sponsorship?.sponsors?.length > 0 ? (
+            <div className="mt-6">
+              <div className="flex flex-wrap justify-center gap-6">
+                {data.sponsorship.sponsors.map((sponsor, idx) => (
+                  <div key={idx} className="flex flex-col items-center gap-2 p-4 rounded-xl border border-black/[0.06] bg-white/45 transition hover:-translate-y-0.5">
+                    <div className="h-16 w-32 flex items-center justify-center overflow-hidden rounded-lg bg-white p-2">
+                      <img
+                        src={sponsor.logo}
+                        alt={sponsor.name}
+                        className="max-h-full max-w-full object-contain"
+                      />
+                    </div>
+                    <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300">{sponsor.name}</span>
+                    {sponsor.tier && (
+                      <span className="text-[9px] font-bold uppercase tracking-widest text-[#c9a86a]">{sponsor.tier}</span>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           ) : (
             <div className="flex justify-center py-8">
