@@ -1,7 +1,7 @@
 // Edited by Milad Ajaz
 // https://m4milaad.github.io/
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "./Navbar";
 import NotificationBar from "./NotificationBar";
 import useInView from "../hooks/useInView";
@@ -9,13 +9,8 @@ import { Link } from "react-router-dom";
 import { useYear } from "../context/yearContext";
 import conferenceData from "../content/conferenceData";
 import {
-  Bell,
   Briefcase,
-  Calendar,
-  Camera,
-  FileText,
   GraduationCap,
-  Presentation,
   Shield,
   Sparkles,
   Stethoscope,
@@ -31,6 +26,153 @@ const iconMap = {
   Zap,
   Shield,
 };
+
+// ── Swipeable Card Carousel ──────────────────────────────────────────────────
+function SwipeableCards({ is2024, meta }) {
+  const [current, setCurrent] = useState(0);
+  const viewportRef = useRef(null);
+  const trackRef = useRef(null);
+  const startX = useRef(0);
+  const startY = useRef(0);
+  const isDragging = useRef(false);
+  const moved = useRef(false);
+  const total = 2;
+
+  const goTo = (i) => {
+    const next = Math.max(0, Math.min(total - 1, i));
+    setCurrent(next);
+    if (trackRef.current && viewportRef.current) {
+      const cardW = viewportRef.current.offsetWidth + 12;
+      trackRef.current.style.transition = "transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94)";
+      trackRef.current.style.transform = `translateX(-${next * cardW}px)`;
+    }
+  };
+
+  const onPointerDown = (e) => {
+    // Don't start dragging if clicking on a button or link
+    if (e.target.closest("button") || e.target.closest("a")) {
+      return;
+    }
+    startX.current = e.clientX;
+    startY.current = e.clientY;
+    isDragging.current = true;
+    moved.current = false;
+    viewportRef.current.setPointerCapture(e.pointerId);
+    if (trackRef.current) trackRef.current.style.transition = "none";
+  };
+
+  const onPointerMove = (e) => {
+    if (!isDragging.current) return;
+    const dx = e.clientX - startX.current;
+    const dy = e.clientY - startY.current;
+    if (Math.abs(dx) > 5) moved.current = true;
+    if (Math.abs(dx) > Math.abs(dy) && trackRef.current && viewportRef.current) {
+      e.preventDefault();
+      const cardW = viewportRef.current.offsetWidth + 12;
+      trackRef.current.style.transform = `translateX(-${current * cardW - dx}px)`;
+    }
+  };
+
+  const onPointerUp = (e) => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    const dx = e.clientX - startX.current;
+    if (moved.current && Math.abs(dx) > 60) {
+      goTo(dx < 0 ? current + 1 : current - 1);
+    } else {
+      goTo(current);
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-3">
+      {/* Viewport */}
+      <div
+        ref={viewportRef}
+        className="overflow-hidden w-full cursor-grab active:cursor-grabbing select-none"
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+      >
+        <div
+          ref={trackRef}
+          className="flex gap-3"
+          style={{ transform: "translateX(0)" }}
+        >
+          {/* Card 1 — Book Hotel */}
+          <div className="linear-card p-6 flex flex-col flex-shrink-0 w-full">
+            <h3 className="text-lg font-semibold text-zinc-950 dark:text-zinc-100">Book Hotel</h3>
+            <p className="mt-2 text-sm text-zinc-800 dark:text-zinc-400 flex-1">
+              Convenient accommodation options near the conference venue. Book early to secure preferred rates for 2AI-2026 attendees.
+            </p>
+            <Link
+              to="/hotel-booking"
+              className="linear-primary mt-4 inline-flex w-full justify-center px-5 py-2 text-sm"
+            >
+              BOOK HOTEL →
+            </Link>
+          </div>
+
+          {/* Card 2 — Paper Submission */}
+          <div className="linear-card p-6 flex flex-col flex-shrink-0 w-full">
+            <h3 className="text-lg font-semibold text-zinc-950 dark:text-zinc-100">Paper Submission</h3>
+            <p className="mt-2 text-sm text-zinc-800 dark:text-zinc-400 flex-1">
+              Authors are invited to submit their original and unpublished research paper.
+            </p>
+            {!is2024 ? (
+              <a
+                href={meta.cmt}
+                target="_blank"
+                rel="noreferrer"
+                className="linear-primary mt-4 inline-flex w-full justify-center px-5 py-2 text-sm"
+              >
+                Submit Paper →
+              </a>
+            ) : (
+              <span className="mt-4 inline-flex w-full justify-center px-5 py-2 text-sm bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 cursor-not-allowed rounded">
+                Submissions Closed
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Nav row */}
+      <div className="flex items-center justify-between px-0.5">
+        <button
+          onClick={() => goTo(current - 1)}
+          disabled={current === 0}
+          className="flex items-center gap-1 rounded-lg border border-black/[0.1] dark:border-white/10 px-3 py-1.5 text-xs text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-white/5 disabled:opacity-30 disabled:cursor-default transition"
+        >
+          ← Prev
+        </button>
+        <div className="flex gap-1.5">
+          {Array.from({ length: total }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              aria-label={`Card ${i + 1}`}
+              className={`w-1.5 h-1.5 rounded-full transition-all ${
+                i === current
+                  ? "bg-zinc-700 dark:bg-zinc-300 scale-125"
+                  : "bg-zinc-300 dark:bg-zinc-600"
+              }`}
+            />
+          ))}
+        </div>
+        <button
+          onClick={() => goTo(current + 1)}
+          disabled={current === total - 1}
+          className="flex items-center gap-1 rounded-lg border border-black/[0.1] dark:border-white/10 px-3 py-1.5 text-xs text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-white/5 disabled:opacity-30 disabled:cursor-default transition"
+        >
+          Next →
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ────────────────────────────────────────────────────────────────────────────
 
 function Home() {
   const { selectedYear } = useYear();
@@ -180,27 +322,8 @@ function Home() {
 
         <section className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-4">
           <div className="lg:col-span-1 flex flex-col gap-6">
-            <div className="linear-card p-6 flex-1 flex flex-col">
-              <h3 className="text-lg font-semibold text-zinc-950 dark:text-zinc-100">Paper Submission</h3>
-              <p className="mt-2 text-sm text-zinc-800 dark:text-zinc-400 flex-1">
-                Authors are invited to submit their original and unpublished research paper.
-              </p>
-              {!is2024 && (
-                <a
-                  href={meta.cmt}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="linear-primary mt-4 inline-flex w-full justify-center px-5 py-2 text-sm"
-                >
-                  Submit Paper →
-                </a>
-              )}
-              {is2024 && (
-                <span className="mt-4 inline-flex w-full justify-center px-5 py-2 text-sm bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 cursor-not-allowed rounded">
-                  Submissions Closed
-                </span>
-              )}
-            </div>
+            {/* ── Left column: swipeable cards ── */}
+            <SwipeableCards is2024={is2024} meta={meta} />
 
             <div className="linear-card p-6 flex-1 flex flex-col">
               <h3 className="text-lg font-semibold text-zinc-950 dark:text-zinc-100">

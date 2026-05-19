@@ -47,3 +47,35 @@ CREATE TABLE registrations (
 );
 SELECT * FROM committee;
 ALTER TABLE committee CHANGE sub_committee sub_committe VARCHAR(255);
+
+
+-- Hotel Bookings Table
+CREATE TABLE hotel_bookings (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  booking_id VARCHAR(50) UNIQUE NOT NULL,
+  first_name VARCHAR(100) NOT NULL,
+  last_name VARCHAR(100) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  phone VARCHAR(50) NOT NULL,
+  country VARCHAR(100) NOT NULL,
+  city VARCHAR(100) NOT NULL,
+  check_in_date DATE NOT NULL,
+  check_out_date DATE NOT NULL,
+  number_of_rooms INT NOT NULL,
+  number_of_guests INT NOT NULL,
+  meal_plan VARCHAR(50) NOT NULL,
+  meal_plan_price DECIMAL(10,2) NOT NULL,
+  total_amount DECIMAL(10,2) NOT NULL,
+  special_requests TEXT,
+  transaction_id VARCHAR(100),
+  payment_proof_path VARCHAR(255),
+  payment_verified BOOLEAN DEFAULT FALSE,
+  booking_status VARCHAR(50) DEFAULT 'pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Create index for faster queries
+CREATE INDEX idx_email ON hotel_bookings(email);
+CREATE INDEX idx_booking_id ON hotel_bookings(booking_id);
+CREATE INDEX idx_check_in_date ON hotel_bookings(check_in_date);
