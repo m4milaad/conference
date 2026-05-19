@@ -70,12 +70,32 @@ function HotelBooking() {
   };
 
   const validateStep2 = () => {
-    return (
-      formData.checkInDate &&
-      formData.checkOutDate &&
-      Number(formData.numberOfRooms) > 0 &&
-      Number(formData.numberOfGuests) > 0
-    );
+    if (!formData.checkInDate || !formData.checkOutDate) {
+      return false;
+    }
+    
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const checkIn = new Date(formData.checkInDate);
+    const checkOut = new Date(formData.checkOutDate);
+    
+    // Check-in date cannot be before today
+    if (checkIn < today) {
+      alert("Check-in date cannot be before today");
+      return false;
+    }
+    
+    // Check-out date must be after check-in date
+    if (checkOut <= checkIn) {
+      alert("Check-out date must be after check-in date");
+      return false;
+    }
+    
+    if (Number(formData.numberOfRooms) <= 0 || Number(formData.numberOfGuests) <= 0) {
+      return false;
+    }
+    
+    return true;
   };
 
   const validateStep3 = () => {
@@ -392,6 +412,7 @@ function HotelBooking() {
                           name="checkInDate"
                           value={formData.checkInDate}
                           onChange={handleChange}
+                          min={new Date().toISOString().split('T')[0]}
                           className="w-full border border-gray-300 dark:border-zinc-700 rounded p-3 focus:ring-2 focus:ring-[#5E6AD2] dark:focus:ring-[#c9a86a] focus:border-[#5E6AD2] dark:focus:border-[#c9a86a] outline-none transition-shadow"
                         />
                       </div>
@@ -404,6 +425,7 @@ function HotelBooking() {
                           name="checkOutDate"
                           value={formData.checkOutDate}
                           onChange={handleChange}
+                          min={formData.checkInDate ? new Date(new Date(formData.checkInDate).getTime() + 86400000).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]}
                           className="w-full border border-gray-300 dark:border-zinc-700 rounded p-3 focus:ring-2 focus:ring-[#5E6AD2] dark:focus:ring-[#c9a86a] focus:border-[#5E6AD2] dark:focus:border-[#c9a86a] outline-none transition-shadow"
                         />
                       </div>
